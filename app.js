@@ -166,3 +166,13 @@ greet(); // looks like
 */
 
 // Function Statements and Function Expressions
+
+var a;
+// Anonymous Function are those function which does not have anything in their name property.
+
+var anonymousGreet = function(){        // anonymous Function
+    console.log('hi');
+}
+
+anonymousGreet();
+
