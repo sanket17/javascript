@@ -167,12 +167,197 @@ greet(); // looks like
 
 // Function Statements and Function Expressions
 
-var a;
-// Anonymous Function are those function which does not have anything in their name property.
+//var a;
+//// Anonymous Function are those function which does not have anything in their name property.
+//
+//var anonymousGreet = function(){        // anonymous Function
+//    console.log('hi');
+//}
+//
+//anonymousGreet();
+//-----------------------------------------------------------------------------------------------------------------------------------------
 
-var anonymousGreet = function(){        // anonymous Function
-    console.log('hi');
+// By value and by reference
+
+// By value concept
+/* var a = 3; // address 100
+
+// Suppose I pass this value to a function or assign it to another variable like
+
+var b = a;
+
+// Here b's address will be 200 and new copy of value 3 will be placed at that location, this is called as By Value in JS.
+// The above holds true on primitive data types
+
+// Now, let
+
+//a = {
+//    'firstname' : 'sanket'
+//}
+
+// a is pointing to a object which is at say 100 addresss location
+// now,
+
+//b = a;  or pass 'a' to a function
+
+// b will also point to 100 address location. This is called By Reference in JS
+// All object interact by using by refernce in JS
+
+a = 2;
+console.log(a);     // example of By Value
+console.log(b);
+
+// Example for By Reference (all objects includings functions)
+
+var c= { greeting:'hi'};
+
+var d;
+
+d = c;
+
+c.greeting = 'hello'; // mutate
+
+// Mutate : To change something
+// Immuatble  :It can't be changed
+
+console.log(c);
+console.log(d);
+
+// by reference (even as parameters)
+
+function changeGreeting(obj){
+    obj.greeting = 'Hola'; //mutate
 }
 
-anonymousGreet();
+changeGreeting(d);
+console.log(c);
+console.log(d);
+
+// equals operator sets up new memeory space (new address)
+
+c = {greeting: 'Howdy'}; // as it new object so C is pointing to different spot in memory
+console.log(c);
+console.log(d);
+
+// in JS all primitive type BY VALUE
+// All object BY REFERENCE
+
+------------------------------------------------------------------------------------------------------------------------------------------*/
+
+// OBJECTS, FUNCTIONS AND 'this'
+/*
+function a(){
+console.log(this);
+}
+
+a(); // this will point to global window object
+
+var c = {
+    name: 'The c object',       // property
+    log : function(){           // method
+        
+        // to solve ** problem
+        
+        var self = this;
+        
+         self.name = 'Updated C object'; 
+        console.log(self);      // this over here will point to 'c' object
+        
+        // as THIS was pointing to C obj so we can mutate its property using this 
+        
+        function setName(Name){
+            self.name = Name;
+            console.log(self);          // THIS over here is pointing to global WINDOWS object rather pointing to C object **
+        }
+        
+        setName('Updated Again C');
+        console.log(self);
+        
+        console.log(this);
+    }
+}
+
+c.log();
+
+// this in JS alwasys points to global windows object unless it is called in a method which is define in function exression in object literal as deine above
+-------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+// Arrays collection of anything
+
+/*var arr = [1, 2, 3];    // array literal same as object literal except brackets
+
+// In other programming languages Array are used to hold collection of HOMOGENOUS elements
+// But in JS array can hold collection of hetrogenous element
+
+arr = [
+    1,
+    false,
+    {
+        firstName: 'sanket',
+        lastName: 'Tikam'
+    },
+    function(){
+        console.log(this);
+    },
+    "Howdy Sanket"
+];
+
+console.log(arr);
+
+// reference  aparticular element
+
+arr[3](); 
+
+-------------------------------------------------------------------------------------------------------------------------------------------*/
+
+// arguments and SPREAD
+
+// is a special keyword set by JS engine while excecuting the function 
+// conatin the list fo all the values of all the parameters that we pass to the function.
+// arguments act enough like array
+
+/*
+function greet(firstname, lastname, language){
+    
+    language = language || 'en';  // this is way to set default parameter
+    
+    if(arguments.length === 0){
+        console.log('Missing parameters');
+    }
+    
+    console.log(firstname);
+    console.log(lastname);
+    console.log(language);
+    console.log(arguments);
+    console.log(arguments[2]);
+    console.log('-----------------');
+}
+
+greet(); // error in other languages but not in JS (concept of hoisting)
+
+greet('John');
+greet('John','Doe');
+greet('John','Doe','English');
+-------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+// FUNCTION OVERLOADING
+
+// This feature is not in JS as JS treats function as objects and JS has first class fucntions
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+// Synatx Parser
+
+// to convert our JS code into machine language JS engine uses various codes
+// One of it is syntax parser
+//Syntax parser takes the code and checks for its validity
+// its checks character by character
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+// Automatic Semicolan Insertion
+
+
 
