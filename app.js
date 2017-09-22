@@ -175,6 +175,25 @@ greet(); // looks like
 //}
 //
 //anonymousGreet();
+
+// function statement
+// It gets memory while compiling
+// but it is excuted when greet() line is encountered
+/* function greet(){
+    console.log('Hiee');
+}
+
+greet();
+
+// function expression
+// it gets memory while performing its excution i.e on finding the var gre..
+
+var greetFunc = function(){
+  console.log('Hiee');  
+};
+
+greetFunc();
+*/
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 // By value and by reference
@@ -359,5 +378,105 @@ greet('John','Doe','English');
 
 // Automatic Semicolan Insertion
 
+// semicolon are optional in core JS
+// it is because SYNTAX PARSER, according to its logic where ever it feels it need to insert semicolon(if it is not present) then it adds 
+// automatically by its own, hence it is 
+
+//example - if syntax parser finds a \r(enter) after return keyword, it will automatically add semicolon after it
+// hence in JS syntax we find that {} braces are placed on same line
+// like function() {}
+// rather than function()
+//              {}
+/*
+
+function getPerson(){
+    return {
+        firstname: 'sanket'
+    }
+}
+
+console.log(getPerson());
+-------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+// WHITESPACE : Invisible characters that create literal 'spcae' in your written code e.g> Carriage return, tabs, space
+
+// Syntax parser removes extra whitespace that we add in the form of comment
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+// Immediately Invoked Function Expressions (IIFE)S
+
+// IIFE is to call/invoke a function soon after its creations
+
+// Consider the following example
+/*
+var greetFunc = function(name){
+    console.log('Hello '+ name);
+};
+
+console.log(greetFunc);
+
+// to invoke the above functio I need to call 
+// greetFunc variable now contains function code
+
+greetFunc('Sanket');
+
+// Consider the bellow eaxmple again
 
 
+var greetFunc1 = function(name){
+    return 'Hello ' + name;
+}('Sanket');
+
+
+console.log(greetFunc1);
+
+// In the above code when the function is invoked as soon as it is created
+// so the variable greetFunc contains a string "Hello Snaket" rather than function code
+
+// Using IIFE we can create a stand-alone function
+3; // This is vslid expression in JS
+"Helo"; // This is also valid expression
+
+//but
+
+//function(name){
+//    return 'Hello' + name;
+//};      // it will give me an error
+
+// but if I enclose it with () like
+// the bellow code is IIFE expression
+// through this we can trick SYNTAX PARSER and we can create a function and call it immeduately after creation and run it
+// it is like creating and invoking function on the fly.
+
+( function(name){
+   console.log('Hello '+ name);
+}('Sanket'));
+
+//It can also be defined as
+
+( function(name){
+   console.log('Hello '+ name);
+})('Sanket');
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+// IIFE and Safe Code
+
+//( function(name){
+//    var greeting = 'Hello';
+//   console.log(+ name);
+//}('Sanket'));
+//
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+// Understanding Closures
+
+function greet(whattosay){
+    
+    return function(name){
+        console.log(whattosay + '' + name);
+    }
+}
