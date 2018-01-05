@@ -474,9 +474,174 @@ console.log(greetFunc1);
 
 // Understanding Closures
 
+// Closures are the features in JS , They help us to call the function in order they are define no matter whether their execution stack persisit or not
+
+
+/*
 function greet(whattosay){
     
     return function(name){
-        console.log(whattosay + '' + name);
+        console.log(whattosay + ' ' + name);
     }
 }
+
+greet('Hi');
+greet('Hi')('Tony'); //o/p  -Hi Tony
+
+var sayHi = greet('Hi');
+sayHi('Tony'); //o/p  -Hi Tony
+*/
+// Explanation for the above code :
+/*
+1. When the scripts gets runs Global Execution stacks gets loaded and the execution stack for greet() function gets loaded, after this memory space for whattosay variable get alloted
+2. On encountering the return statement the code for anonymous function gets loaded in memory but at this point execution stack of function greet() gets removed, but this doesnot removes the space alloted to the whattosay variable.
+3. When it encounters var sayHi , it gets loaded in global execution stack and then execution stack of the anonymous function gets loaded
+4. On getting console.log() line it see whattosay variable, then as greet() was parent function so this anonymous function points to the memory location of the variable used by greet() function .
+5, This referencing of inner fuction with its parent function variable memory is called as closure.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+*/
+
+// Understanding Closure - Part 2
+/*
+function buildFunctions(){
+    
+    var arr = [];
+    
+    for(var i = 0; i<3 ; i++){
+        arr.push(
+            function(){
+                console.log(i);
+            }
+        );
+    }
+    
+    return arr;
+}
+
+var fs  = buildFunctions();
+
+fs[0](); //op - 3
+fs[1](); //op - 3
+fs[2](); //op - 3
+*/
+// In closoure, though the parent execution may finished its execution but memory used for its variable and their values are not removed(Until GC collects them), hence when child function cannot find  particular value for a variable it search in the upper scope i.e its parent scope and then global.
+/*
+The above example can be considered in following scenario:-
+Assume that there are 3 children and each of them is ask to tell them their father's age.
+So they will tell the present age of their father and not the age that was there when they were born.
+
+Free Variables - These are the variables which are outside the functions but are accessible.
+for example  : Consider arr present situation, it is now outside of the function stack frame but is still accessible using 'fs'.
+*/
+/*
+function buildFunctions2(){
+    
+    var arr = [];
+    
+    for(var i = 0; i<3 ; i++){
+        let j = i;
+        arr.push(
+            function(){
+                console.log(j);
+            }
+        );
+    }
+    
+    return arr;
+}
+
+var fs2  = buildFunctions2();
+
+fs2[0](); //op - 0
+fs2[1](); //op - 1
+fs2[2](); //op - 2
+*/
+/*
+In the above example j will be created on every loop call and thus will retain the loopCount value at the time of its creations
+Hence the anonymous function will be calling different versions of J, depending on its loop execution.
+The above code can also be modified as follows using IIFE
+*/
+
+/*function buildFunctions3(){
+    
+    var arr = [];
+    
+    for(var i = 0; i<3 ; i++){
+        arr.push(
+            function(j){
+                console.log(j);
+            }(i)
+        );
+    }
+    
+    return arr;
+}
+
+var fs3  = buildFunctions3(); */
+
+//fs3[0](); //op - 0
+//fs3[1](); //op - 1
+//fs3[2](); //op - 2
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------
+*/
+// FUNCTION FACTORIES
+// Factory - Means function that makes other things ready or forming
+/*
+function makeGreeting(language){
+    return function(firstName, lastName){
+        if(language === 'en'){
+            console.log('Hello '+ firstName + ' '+ lastName);
+        }
+        if(language === 'es'){
+            console.log('Hola '+ firstName + ' '+ lastName);
+        }
+    }
+}
+
+var greetEnglish = makeGreeting('en');
+
+var greetSpanish = makeGreeting('es');
+
+greetEnglish('Sanket','Tikam');
+greetSpanish('Sanket','Tikam');
+*/
+/*
+Explanation for the above code:-
+1. makeGreeeting() function returns a anonymous function
+2. variable greetEnglish, greetSpanish and makeGreeting function are loaded when global execution context gets loaded.
+3. On execution of line no. 605, makeGreeting functions gets called loading its execution stack with language set to 'en'.
+4. After this execution stack for makeGreeting() gets removed, leaving behind free variable language='en'.
+5. On execution of line no. 607 makeGreeting functions gets called loading its execution stack with language set to 'es'.
+6. After this execution stack for makeGreeting() gets removed, leaving behind free variable language='es'.
+7. On execution of line 609 stack frame for anonymous function pointed by language - en gets loaded, it only happens due to closure feature.
+8. Same thing happen on execution of line 610.
+9. Hence though greetEnglish and greetSpanish are pointing to the same function still due to closure property different stack frame gets loaded for respective function call.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+// Closures and Callbacks
+
+function sayHiLater(){
+    var greeting = 'Hi';
+    setTimeout(function(){
+        console.log(greeting);
+    },3000)
+}
+
+sayHiLater();
+
+/*
+Syntax for setTimeout():
+
+setTimeout(
+function(){},   A function that defines what task is to be done
+timerVale);     A timer value in millisecond that defines how much millisec it should wait before that task.
+
+Callback can be stated as  - I tell the Js engine that take setTimeout function and execute it after 3sec when ever you are free.
+Callback Function : A function you give to  another function, to be run when the other function is finished. Means I create a function A() and give it B(), and when A() finishes its execution it calls B().
+*/
